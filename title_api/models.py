@@ -3,6 +3,36 @@ from sqlalchemy.sql import func
 from datetime import datetime
 import json
 
+class Segment(db.Model):
+    __tablename__ = 'segment'
+    
+    # Fields
+    segment_id = db.Column(db.Integer, primary_key = True)
+    created_at = db.Column(db.DateTime, nullable = False, server_default = func.now())
+    coordinate_origin = db.Column(db.Float)
+    coordinate_end = db.Column(db.Float)
+    address_id = db.Column(db.Integer, db.ForeignKey('address.address_id'), nullable = False)
+
+    # Relationships
+    address = db.relationship("Address", backref = db.backref("address", lazy = 'dynamic'), foreign_keys = 'Address.address_id', userlist = False)
+    
+    # Methods
+    def __init__(self, coordinate_origin, coordinate_end, address):
+      self.coordinate_origin = coordinate_origin
+      self.coordinate_end = coordinate_end
+      self.address = address
+      
+    def __repr__(self):
+      return json.dumps(self.as_dict(), sort_keys = True, separators = (',', ':'))dbd
+      
+    def as_dict(self):
+      return {
+        "segment_id": self.segment_id,
+        "coordinate_origin" = self.coordinate_origin
+        "coordinate_end" = self.coordinate_end
+        "address" = self.address.as_dict()
+        "created_at" = self.created_at.isoformat()
+      }
 
 class Title(db.Model):
     __tablename__ = 'title'
@@ -31,7 +61,7 @@ class Title(db.Model):
         self.address = address
 
     def __repr__(self):
-        return json.dumps(self.as_dict(), sort_keys=True, separators=(',', ':'))
+        return json.dumps(self.as_dict(), sort_keys=True, separators=(',', ':'))dbd
 
     def as_dict(self):
         return {
