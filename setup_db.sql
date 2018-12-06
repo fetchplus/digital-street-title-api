@@ -13,6 +13,16 @@ VALUES	(1, '1', 'Digital Street', 'Bristol', 'Avon', 'England', 'BS2 8EN'),
 		(8, '32', 'Digital Street', 'Bristol', 'Avon', 'England', 'BS2 8EN');
 ALTER SEQUENCE "address_address_id_seq" RESTART WITH 9;
 
+INSERT INTO "segment" (segment_id, coordinate_origin, coordinate_end, address_id)
+VALUES  (1, 0, 10, 1),
+		(2, 15, 70, 2),
+		(3, 100, 200, 3),
+		(4, 350, 410, 4),
+		(5, 410, 420, 5),
+		(6, 500, 1000, 6),
+		(7, 1005, 1100, 7),
+		(8, 2000, 2100, 8);
+		
 INSERT INTO "owner" (identity, forename, surname, email, phone, owner_type, address_id)
 VALUES	(1, 'Lisa', 'White', 'lisa.white@example.com', '07700900354', 'individual', 2),
 		(2, 'David', 'Jones', 'david.jones@example.com', '07700900827', 'individual', 3),
