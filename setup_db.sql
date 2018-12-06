@@ -1,27 +1,27 @@
 
-INSERT INTO "address" (address_id, house_name_or_number, street_name, city, county, country, postcode)
-VALUES	(1, '1', 'Digital Street', 'Bristol', 'Avon', 'England', 'BS2 8EN'),
+INSERT INTO "address" (address_id, house_name_or_number, street_name, city, county, country, postcode, segment_id)
+VALUES	(1, '1', 'Digital Street', 'Bristol', 'Avon', 'England', 'BS2 8EN', 1),
 
-		(2, '10', 'Digital Street', 'Bristol', 'Avon', 'England', 'BS2 8EN'),
-		(3, '11', 'Digital Street', 'Bristol', 'Avon', 'England', 'BS2 8EN'),
+		(2, '10', 'Digital Street', 'Bristol', 'Avon', 'England', 'BS2 8EN', 2),
+		(3, '11', 'Digital Street', 'Bristol', 'Avon', 'England', 'BS2 8EN', 3),
 
-		(4, '20', 'Digital Street', 'Bristol', 'Avon', 'England', 'BS2 8EN'),
-		(5, '21', 'Digital Street', 'Bristol', 'Avon', 'England', 'BS2 8EN'),
+		(4, '20', 'Digital Street', 'Bristol', 'Avon', 'England', 'BS2 8EN', 4),
+		(5, '21', 'Digital Street', 'Bristol', 'Avon', 'England', 'BS2 8EN', 5),
 
-		(6, '30', 'Digital Street', 'Bristol', 'Avon', 'England', 'BS2 8EN'),
-		(7, '31', 'Digital Street', 'Bristol', 'Avon', 'England', 'BS2 8EN'),
-		(8, '32', 'Digital Street', 'Bristol', 'Avon', 'England', 'BS2 8EN');
+		(6, '30', 'Digital Street', 'Bristol', 'Avon', 'England', 'BS2 8EN', 6),
+		(7, '31', 'Digital Street', 'Bristol', 'Avon', 'England', 'BS2 8EN', 7),
+		(8, '32', 'Digital Street', 'Bristol', 'Avon', 'England', 'BS2 8EN', 8);
 ALTER SEQUENCE "address_address_id_seq" RESTART WITH 9;
 
-INSERT INTO "segment" (segment_id, coordinate_origin, coordinate_end, address_id)
-VALUES  (1, 0, 10, 1),
-		(2, 15, 70, 2),
-		(3, 100, 200, 3),
-		(4, 350, 410, 4),
-		(5, 410, 420, 5),
-		(6, 500, 1000, 6),
-		(7, 1005, 1100, 7),
-		(8, 2000, 2100, 8);
+INSERT INTO "segment" (segment_id, coordinate_origin, coordinate_end)
+VALUES  (1, 0, 10),
+		(2, 15, 7),
+		(3, 100, 200),
+		(4, 350, 410),
+		(5, 410, 420),
+		(6, 500, 1000),
+		(7, 1005, 1100),
+		(8, 2000, 2100);
 		
 INSERT INTO "owner" (identity, forename, surname, email, phone, owner_type, address_id)
 VALUES	(1, 'Lisa', 'White', 'lisa.white@example.com', '07700900354', 'individual', 2),
