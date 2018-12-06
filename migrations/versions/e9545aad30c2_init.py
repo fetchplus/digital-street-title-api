@@ -86,4 +86,5 @@ def downgrade():
     op.drop_table('owner')
     op.drop_table('conveyancer')
     op.drop_table('address')
+    op.drop_table('segment') # added by me
     # ### end Alembic commands ###
