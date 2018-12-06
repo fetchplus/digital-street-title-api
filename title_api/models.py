@@ -28,10 +28,10 @@ class Segment(db.Model):
     def as_dict(self):
       return {
         "segment_id": self.segment_id,
-        "coordinate_origin" = self.coordinate_origin
-        "coordinate_end" = self.coordinate_end
-        "address" = self.address.as_dict()
-        "created_at" = self.created_at.isoformat()
+        "coordinate_origin": self.coordinate_origin
+        "coordinate_end": self.coordinate_end
+        "address": self.address.as_dict()
+        "created_at": self.created_at.isoformat()
       }
 
 class Title(db.Model):
