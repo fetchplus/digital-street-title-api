@@ -11,16 +11,11 @@ class Segment(db.Model):
     created_at = db.Column(db.DateTime, nullable = False, server_default = func.now())
     coordinate_origin = db.Column(db.Float)
     coordinate_end = db.Column(db.Float)
-    address_id = db.Column(db.Integer, db.ForeignKey('address.address_id'), nullable = True)
-
-    # Relationships
-    address = db.relationship("Address", backref = db.backref("address", lazy = 'dynamic'), foreign_keys = 'Address.address_id', uselist = False)
     
     # Methods
-    def __init__(self, coordinate_origin, coordinate_end, address):
+    def __init__(self, coordinate_origin, coordinate_end):
       self.coordinate_origin = coordinate_origin
       self.coordinate_end = coordinate_end
-      self.address = address
       
     def __repr__(self):
       return json.dumps(self.as_dict(), sort_keys = True, separators = (',', ':'))
@@ -30,7 +25,6 @@ class Segment(db.Model):
         "segment_id": self.segment_id,
         "coordinate_origin": self.coordinate_origin,
         "coordinate_end": self.coordinate_end,
-        "address": self.address.as_dict(),
         "created_at": self.created_at.isoformat()
       }
 
@@ -127,15 +121,20 @@ class Address(db.Model):
     country = db.Column(db.String, nullable=False)
     postcode = db.Column(db.String, nullable=False)
     segment_id = db.Column(db.Integer, db.ForeignKey('segment.segment_id'), nullable=True)
+    address_id = db.Column(db.Integer, db.ForeignKey('address.address_id'), nullable=True)
+
+    # Relationships
+    segment = db.relationship("Segment", backref = db.backref("segment", lazy = 'dynamic'), foreign_keys = 'Segment.segment_id', uselist = False)
 
     # Methods
-    def __init__(self, house_name_number, street_name, city, county, country, postcode):
+    def __init__(self, house_name_number, street_name, city, county, country, postcode, address):
         self.house_name_or_number = house_name_number
         self.street_name = street_name
         self.city = city
         self.county = county
         self.country = country
         self.postcode = postcode
+        self.address = address
 
     def __repr__(self):
         return json.dumps(self.as_dict(), sort_keys=True, separators=(',', ':'))
@@ -147,7 +146,8 @@ class Address(db.Model):
             "town_city": self.city,
             "county": self.county,
             "country": self.country,
-            "postcode": self.postcode
+            "postcode": self.postcode,
+            "address": self.address
         }
 
 
