@@ -23,7 +23,7 @@ class Segment(db.Model):
       self.address = address
       
     def __repr__(self):
-      return json.dumps(self.as_dict(), sort_keys = True, separators = (',', ':'))dbd
+      return json.dumps(self.as_dict(), sort_keys = True, separators = (',', ':'))
       
     def as_dict(self):
       return {
@@ -61,7 +61,7 @@ class Title(db.Model):
         self.address = address
 
     def __repr__(self):
-        return json.dumps(self.as_dict(), sort_keys=True, separators=(',', ':'))dbd
+        return json.dumps(self.as_dict(), sort_keys=True, separators=(',', ':'))
 
     def as_dict(self):
         return {
