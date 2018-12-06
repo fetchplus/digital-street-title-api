@@ -37,7 +37,7 @@ def upgrade():
     sa.Column('country', sa.String(), nullable=False),
     sa.Column('postcode', sa.String(), nullable=False),
     sa.Column('segment_id', sa.Integer(), nullable=False),
-    sa.ForeignKeyConstraint(['segment_id'], ['segment.segment_id'], onupdate='CASCADE', ondelete='CASCADE')
+    sa.ForeignKeyConstraint(['segment_id'], ['segment.segment_id'], onupdate='CASCADE', ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('address_id')
     ) 
     op.create_table('conveyancer',
@@ -73,7 +73,7 @@ def upgrade():
     # ### end Alembic commands ###
 
     context.execute("GRANT SELECT, UPDATE, INSERT, DELETE ON TABLE \"address\", \"conveyancer\", \"owner\", \
-                    \"title\" TO " + current_app.config.get('APP_SQL_USERNAME'))
+                    \"title\", \"segment\" TO " + current_app.config.get('APP_SQL_USERNAME'))
     context.execute("GRANT USAGE ON SEQUENCE \"address_address_id_seq\", \
                     \"conveyancer_conveyancer_id_seq\" TO " + current_app.config.get('APP_SQL_USERNAME'))
 
