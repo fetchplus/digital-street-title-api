@@ -14,7 +14,7 @@ class Segment(db.Model):
     address_id = db.Column(db.Integer, db.ForeignKey('address.address_id'), nullable = True)
 
     # Relationships
-    address = db.relationship("Address", backref = db.backref("address", lazy = 'dynamic'), foreign_keys = 'Address.address_id', userlist = False)
+    address = db.relationship("Address", backref = db.backref("address", lazy = 'dynamic'), foreign_keys = 'Address.address_id', uselist = False)
     
     # Methods
     def __init__(self, coordinate_origin, coordinate_end, address):
