@@ -120,20 +120,20 @@ class Address(db.Model):
     county = db.Column(db.String, nullable=False)
     country = db.Column(db.String, nullable=False)
     postcode = db.Column(db.String, nullable=False)
-    segment_id = db.Column(db.Integer, db.ForeignKey('segment.segment_id'), nullable=True)
+    segment_id = db.Column(db.Integer, db.ForeignKey('segment.segment_id'), nullable=False)
 
     # Relationships
-    segment = db.relationship("Segment", backref = db.backref("segment", lazy = 'dynamic'), foreign_keys = 'Segment.segment_', uselist = False)
+    segment = db.relationship("Segment", backref = db.backref("segment", lazy = 'dynamic'), foreign_keys = 'Segment.segment_id', uselist = False)
 
     # Methods
-    def __init__(self, house_name_number, street_name, city, county, country, postcode, address):
+    def __init__(self, house_name_number, street_name, city, county, country, postcode, segment):
         self.house_name_or_number = house_name_number
         self.street_name = street_name
         self.city = city
         self.county = county
         self.country = country
         self.postcode = postcode
-        self.address = address
+        self.segment = segment
 
     def __repr__(self):
         return json.dumps(self.as_dict(), sort_keys=True, separators=(',', ':'))
@@ -146,7 +146,8 @@ class Address(db.Model):
             "county": self.county,
             "country": self.country,
             "postcode": self.postcode,
-            "address": self.address
+            "address": self.address,
+            "segment": self.segment
         }
 
 
