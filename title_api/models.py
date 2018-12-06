@@ -11,7 +11,7 @@ class Segment(db.Model):
     created_at = db.Column(db.DateTime, nullable = False, server_default = func.now())
     coordinate_origin = db.Column(db.Float)
     coordinate_end = db.Column(db.Float)
-    address_id = db.Column(db.Integer, db.ForeignKey('address.address_id'), nullable = False)
+    address_id = db.Column(db.Integer, db.ForeignKey('address.address_id'), nullable = True)
 
     # Relationships
     address = db.relationship("Address", backref = db.backref("address", lazy = 'dynamic'), foreign_keys = 'Address.address_id', userlist = False)
@@ -126,6 +126,7 @@ class Address(db.Model):
     county = db.Column(db.String, nullable=False)
     country = db.Column(db.String, nullable=False)
     postcode = db.Column(db.String, nullable=False)
+    segment_id = db.Column(db.Integer, db.ForeignKey('segment.segment_id'), nullable=True)
 
     # Methods
     def __init__(self, house_name_number, street_name, city, county, country, postcode):
