@@ -23,7 +23,7 @@ def upgrade():
     sa.Column('segment_id', sa.Integer(), autoincrement=True, nullable=False),
     sa.Column('coordinate_origin', sa.Float()),
     sa.Column('coordinate_end', sa.Float()),
-    sa.Column('created_at', sa.DateTime(), server_default=sa.text('now()') nullable=False),
+    sa.Column('created_at', sa.DateTime(), server_default=sa.text('now()'), nullable=False),
     sa.Column('address_id', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['address_id'], ['address.address_id'], ),
     sa.PrimaryKeyConstraint('segment_id')
