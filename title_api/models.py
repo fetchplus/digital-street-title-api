@@ -13,20 +13,21 @@ class Segment(db.Model):
     coordinate_end = db.Column(db.Float)
     
     # Methods
-    def __init__(self, coordinate_origin, coordinate_end):
-      self.coordinate_origin = coordinate_origin
-      self.coordinate_end = coordinate_end
+    def __init__(self, segment_id, coordinate_origin, coordinate_end):
+        self.segment_id = segment_id
+        self.coordinate_origin = coordinate_origin
+        self.coordinate_end = coordinate_end
       
     def __repr__(self):
-      return json.dumps(self.as_dict(), sort_keys = True, separators = (',', ':'))
+        return json.dumps(self.as_dict(), sort_keys = True, separators = (',', ':'))
       
     def as_dict(self):
-      return {
-        "segment_id": self.segment_id,
-        "coordinate_origin": self.coordinate_origin,
-        "coordinate_end": self.coordinate_end,
-        "created_at": self.created_at.isoformat()
-      }
+        return {
+            "segment_id": self.segment_id,
+            "coordinate_origin": self.coordinate_origin,
+            "coordinate_end": self.coordinate_end,
+            "created_at": self.created_at.isoformat()
+        }
 
 class Title(db.Model):
     __tablename__ = 'title'
@@ -123,7 +124,8 @@ class Address(db.Model):
     segment_id = db.Column(db.Integer, db.ForeignKey('segment.segment_id'), nullable=False)
 
     # Relationships
-    segment = db.relationship("Segment", backref = db.backref("segment", lazy = 'dynamic'), foreign_keys = 'Segment.segment_id', uselist = False)
+    segment = db.relationship("Segment", backref=db.backref("segment", lazy='dynamic'),
+                              foreign_keys='Segment.segment_id', uselist=False)
 
     # Methods
     def __init__(self, house_name_number, street_name, city, county, country, postcode, segment):
@@ -147,7 +149,7 @@ class Address(db.Model):
             "country": self.country,
             "postcode": self.postcode,
             "address": self.address,
-            "segment": self.segment
+            "segment": self.segment.as_dict()
         }
 
 
