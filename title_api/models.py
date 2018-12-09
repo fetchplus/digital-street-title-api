@@ -124,8 +124,8 @@ class Address(db.Model):
     segment_id = db.Column(db.Integer, db.ForeignKey('segment.segment_id'), nullable=False)
 
     # Relationships
-    segment = db.relationship("Segment", backref=db.backref("segment", lazy='dynamic'),
-                              foreign_keys='Segment.segment_id', uselist=False)
+    segment = db.relationship("Segment", backref=db.backref("address", lazy='dynamic'),
+                              foreign_keys='Address.segment_id', uselist=False)
 
     # Methods
     def __init__(self, house_name_number, street_name, city, county, country, postcode, segment):
@@ -148,7 +148,6 @@ class Address(db.Model):
             "county": self.county,
             "country": self.country,
             "postcode": self.postcode,
-            "address": self.address,
             "segment": self.segment.as_dict()
         }
 
